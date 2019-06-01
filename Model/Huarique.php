@@ -15,6 +15,7 @@ class Huarique {
   private $latitud;
   private $longitude;
   private $region;
+  private $price;
   private $idplato;
   private $cn;
   private $stmt;
@@ -68,6 +69,22 @@ class Huarique {
       $this->stmt = $this->cn->prepare($sql);
       $this->stmt->bindParam(1, $this->region, PDO::PARAM_INT);
       $this->stmt->bindParam(2, $this->nombre, PDO::PARAM_STR);
+      $this->stmt->execute();
+      while ($row = $this->stmt->fetchAll(PDO::FETCH_ASSOC)) {
+        $list[] = $row;
+      }
+    } catch (Exception $e) {
+      $e->getMessage();
+    }
+    return $list;
+  }
+
+  public function findByPrice() {
+    $list = [];
+    try {
+      $sql = 'SELECT * FROM Huarique h INNER JOIN Plato p ON h.idplato = p.id WHERE (p.precio BETWEEN 0 AND ?) ORDER BY p.precio ASC';
+      $this->stmt = $this->cn->prepare($sql);
+      $this->stmt->bindParam(1, $this->price, PDO::PARAM_STR);
       $this->stmt->execute();
       while ($row = $this->stmt->fetchAll(PDO::FETCH_ASSOC)) {
         $list[] = $row;

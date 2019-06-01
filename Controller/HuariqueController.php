@@ -50,4 +50,17 @@ switch ($op) {
     echo json_encode($list);
     break;
   }
+  case 4: {
+    //Object Declarations
+    $list = [];
+    $objHuarique = new Huarique();
+    if (isset($data)) {
+      $precio = filter_var($data->precio, FILTER_SANITIZE_NUMBER_INT);
+      $objHuarique->set('price', $precio);
+      $list['huariques'] = $objHuarique->findByPrice();
+    }
+    $objHuarique->closeConnection();
+    echo json_encode($list);
+    break;
+  }
 }
