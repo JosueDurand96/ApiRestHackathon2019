@@ -20,7 +20,7 @@ switch ($op) {
     if (isset($data)) {
       $region = filter_var($data->region, FILTER_SANITIZE_NUMBER_INT);
       $objHuarique->set('region', $region);
-      $list = $objHuarique->all();
+      $list['huariques'] = $objHuarique->all();
     }
     $objHuarique->closeConnection();
     echo json_encode($list);
@@ -30,7 +30,22 @@ switch ($op) {
     //Object Declarations
     $list = [];
     $objHuarique = new Huarique();
-    $list = $objHuarique->allByRating();
+    $list['rating'] = $objHuarique->allByRating();
+    $objHuarique->closeConnection();
+    echo json_encode($list);
+    break;
+  }
+  case 3: {
+    //Object Declarations
+    $list = [];
+    $objHuarique = new Huarique();
+    if (isset($data)) {
+      $region = filter_var($data->region, FILTER_SANITIZE_NUMBER_INT);
+      $nombre = filter_var($data->nombre, FILTER_SANITIZE_STRING);
+      $objHuarique->set('region', $region);
+      $objHuarique->set('nombre', $nombre);
+      $list['huariques'] = $objHuarique->find();
+    }
     $objHuarique->closeConnection();
     echo json_encode($list);
     break;

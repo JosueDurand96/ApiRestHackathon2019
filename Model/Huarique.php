@@ -61,6 +61,23 @@ class Huarique {
     return $list;
   }
 
+  public function find() {
+    $list = [];
+    try {
+      $sql = 'SELECT * FROM Huarique WHERE region LIKE ? AND nombre LIKE ?';
+      $this->stmt = $this->cn->prepare($sql);
+      $this->stmt->bindParam(1, $this->region, PDO::PARAM_INT);
+      $this->stmt->bindParam(2, $this->nombre, PDO::PARAM_STR);
+      $this->stmt->execute();
+      while ($row = $this->stmt->fetchAll(PDO::FETCH_ASSOC)) {
+        $list[] = $row;
+      }
+    } catch (Exception $e) {
+      $e->getMessage();
+    }
+    return $list;
+  }
+
   public function closeConnection() {
     $this->stmt = '';
     $this->cn = '';
