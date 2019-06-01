@@ -57,7 +57,7 @@ switch ($op) {
     if (isset($data)) {
       $precio = filter_var($data->precio, FILTER_SANITIZE_NUMBER_INT);
       $objHuarique->set('price', $precio);
-      $list['huariques'] = $objHuarique->findByPrice();
+      $list[] = $objHuarique->findByPrice();
     }
     $objHuarique->closeConnection();
     echo json_encode($list);
