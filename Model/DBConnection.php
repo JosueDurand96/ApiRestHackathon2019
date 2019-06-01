@@ -3,7 +3,7 @@ class DBConnection extends PDO {
   /* Variables*/
   private $host = 'localhost';
   private $user = 'root';
-  private $password = '';
+  private $password = 'Cris$2019';
   private $database = 'db_turismogo';
   private $charset = 'utf8';
   private $opt = array(
