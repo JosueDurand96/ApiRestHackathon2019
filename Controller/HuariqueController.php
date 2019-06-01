@@ -40,8 +40,8 @@ switch ($op) {
     $list = [];
     $objHuarique = new Huarique();
     if (isset($data)) {
-      $region = filter_var($data->region, FILTER_SANITIZE_NUMBER_INT);
-      $nombre = filter_var($data->nombre, FILTER_SANITIZE_STRING);
+      $region = '%' . filter_var($data->region, FILTER_SANITIZE_NUMBER_INT) . '%';
+      $nombre = '%' . filter_var($data->nombre, FILTER_SANITIZE_STRING) . '%';
       $objHuarique->set('region', $region);
       $objHuarique->set('nombre', $nombre);
       $list['huariques'] = $objHuarique->find();

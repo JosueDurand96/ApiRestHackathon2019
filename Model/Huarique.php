@@ -68,7 +68,7 @@ class Huarique {
   public function find() {
     $list = [];
     try {
-      $sql = 'SELECT * FROM Huarique WHERE region LIKE %?% AND nombre LIKE %?%';
+      $sql = 'SELECT * FROM Huarique WHERE region LIKE ? AND nombre LIKE ?';
       $this->stmt = $this->cn->prepare($sql);
       $this->stmt->bindParam(1, $this->region, PDO::PARAM_INT);
       $this->stmt->bindParam(2, $this->nombre, PDO::PARAM_STR);
