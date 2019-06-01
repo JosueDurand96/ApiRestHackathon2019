@@ -74,7 +74,7 @@ class Huarique {
       $this->stmt->bindParam(2, $this->nombre, PDO::PARAM_STR);
       $this->stmt->execute();
       while ($row = $this->stmt->fetchAll(PDO::FETCH_ASSOC)) {
-        $list[] = $row;
+        $list = $row;
       }
     } catch (Exception $e) {
       $e->getMessage();
@@ -90,7 +90,7 @@ class Huarique {
       $this->stmt->bindParam(1, $this->price, PDO::PARAM_INT);
       $this->stmt->execute();
       while ($row = $this->stmt->fetchAll(PDO::FETCH_ASSOC)) {
-        $list[] = $row;
+        $list = $row;
       }
     } catch (Exception $e) {
       $e->getMessage();
