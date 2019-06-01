@@ -55,7 +55,7 @@ switch ($op) {
     $list = [];
     $objHuarique = new Huarique();
     if (isset($data)) {
-      $precio = filter_var($data->precio, FILTER_SANITIZE_NUMBER_INT);
+      $precio = filter_var($data->precio, FILTER_SANITIZE_STRING);
       $objHuarique->set('price', $precio);
       $list[] = $objHuarique->findByPrice();
     }
