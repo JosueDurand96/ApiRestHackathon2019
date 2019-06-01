@@ -17,6 +17,9 @@ class Huarique {
   private $region;
   private $price;
   private $idplato;
+  private $url;
+  private $precio;
+  private $menu;
   private $cn;
   private $stmt;
 
@@ -72,6 +75,54 @@ class Huarique {
       $this->stmt->execute();
       while ($row = $this->stmt->fetchAll(PDO::FETCH_ASSOC)) {
         $list[] = $row;
+      }
+    } catch (Exception $e) {
+      $e->getMessage();
+    }
+    return $list;
+  }
+
+  public function byPrice() {
+    $list = [];
+    try {
+      $sql = 'SELECT * FROM Huarique h INNER JOIN Plato p ON h.idplato = p.id WHERE (p.precio BETWEEN 0 AND ?) ORDER BY p.precio ASC';
+      $this->stmt = $this->cn->prepare($sql);
+      $this->stmt->bindParam(1, $this->price, PDO::PARAM_INT);
+      $this->stmt->execute();
+      while ($row = $this->stmt->fetchAll(PDO::FETCH_ASSOC)) {
+        $list[] = $row;
+      }
+    } catch (Exception $e) {
+      $e->getMessage();
+    }
+    return $list;
+  }
+
+  public function getDishes() {
+    $list = [];
+    try {
+      $sql = 'SELECT * FROM Huarique h INNER JOIN Plato p ON h.idplato = p.id WHERE h.id = ?';
+      $this->stmt = $this->cn->prepare($sql);
+      $this->stmt->bindParam(1, $this->id, PDO::PARAM_INT);
+      $this->stmt->execute();
+      while ($row = $this->stmt->fetchAll(PDO::FETCH_ASSOC)) {
+        $list = $row;
+      }
+    } catch (Exception $e) {
+      $e->getMessage();
+    }
+    return $list;
+  }
+
+  public function calculate() {
+    $list = [];
+    try {
+      $sql = 'SELECT * FROM Huarique h INNER JOIN Plato p ON h.idplato = p.id WHERE (p.precio BETWEEN 0 AND ?) ORDER BY p.precio ASC';
+      $this->stmt = $this->cn->prepare($sql);
+      $this->stmt->bindParam(1, $this->price, PDO::PARAM_INT);
+      $this->stmt->execute();
+      while ($row = $this->stmt->fetchAll(PDO::FETCH_ASSOC)) {
+        $list = $row;
       }
     } catch (Exception $e) {
       $e->getMessage();

@@ -57,7 +57,20 @@ switch ($op) {
     if (isset($data)) {
       $precio = filter_var($data->precio, FILTER_SANITIZE_STRING);
       $objHuarique->set('price', $precio);
-      $list[] = $objHuarique->findByPrice();
+      $list['huariques'] = $objHuarique->calculate();
+    }
+    $objHuarique->closeConnection();
+    echo json_encode($list);
+    break;
+  }
+  case 5: {
+    //Object Declarations
+    $list = [];
+    $objHuarique = new Huarique();
+    if (isset($data)) {
+      $id = filter_var($data->id, FILTER_SANITIZE_NUMBER_INT);
+      $objHuarique->set('id', $id);
+      $list['huariques'] = $objHuarique->getDishes();
     }
     $objHuarique->closeConnection();
     echo json_encode($list);
